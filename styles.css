@@ -483,3 +483,16 @@ input[type="checkbox"] {
         margin-top: 1rem;
     }
 }
+
+
+
+
+img {
+    max-width: 140px !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 20px auto !important;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
