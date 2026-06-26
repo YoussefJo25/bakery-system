@@ -10,6 +10,8 @@ const state = {
     misc: []
 };
 
+const PIN_CODE = '1234';
+
 function generateId() {
     return Math.random().toString(36).substr(2, 9);
 }
@@ -266,6 +268,18 @@ function attachListeners() {
 
     document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
     document.getElementById('btn-reset-data').addEventListener('click', resetData);
+    document.getElementById('btn-backup').addEventListener('click', backupData);
+    document.getElementById('restore-file').addEventListener('change', restoreData);
+
+    document.getElementById('btn-login').addEventListener('click', () => {
+        const input = document.getElementById('pin-input').value;
+        if (input === PIN_CODE) {
+            sessionStorage.setItem('isAuthenticated', 'true');
+            document.getElementById('pin-overlay').classList.add('hidden');
+        } else {
+            document.getElementById('pin-error').textContent = 'رمز المرور غير صحيح';
+        }
+    });
 }
 
 function exportPDF() {
@@ -300,10 +314,41 @@ function resetData() {
     }
 }
 
-function init() {
-    loadState();
-    attachListeners();
-    calculateAndRender();
+function backupData() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    
+    const date = new Date();
+    const filename = `Bakery_Backup_${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2,'0')}${date.getDate().toString().padStart(2,'0')}.json`;
+    
+    downloadAnchorNode.setAttribute("download", filename);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+function restoreData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const contents = JSON.parse(e.target.result);
+            localStorage.setItem('bakeryStateV2', JSON.stringify(contents));
+            window.location.reload();
+        } catch (err) {
+            alert('حدث خطأ أثناء قراءة الملف');
+        }
+    };
+    reader.readAsText(file);
+}
+
+function checkAuth() {
+    if (sessionStorage.getItem('isAuthenticated') === 'true') {
+        document.getElementById('pin-overlay').classList.add('hidden');
+    }
 }
 
 function registerServiceWorker() {
@@ -312,6 +357,13 @@ function registerServiceWorker() {
             navigator.serviceWorker.register('./sw.js').catch(() => {});
         });
     }
+}
+
+function init() {
+    checkAuth();
+    loadState();
+    attachListeners();
+    calculateAndRender();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

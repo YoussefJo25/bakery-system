@@ -8,16 +8,30 @@
     <title>لوحة الإدارة المالية للمخبز</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
+    <div id="pin-overlay" class="pin-overlay">
+        <div class="pin-card">
+            <h2>تسجيل الدخول</h2>
+            <input type="password" id="pin-input" placeholder="أدخل رمز المرور" maxlength="4">
+            <button id="btn-login" class="btn-add">دخول</button>
+            <p id="pin-error" class="error-msg"></p>
+        </div>
+    </div>
+
     <header>
+        <img src="logo.png" alt="شعار المخبز" class="header-logo">
         <h1>نظام الإدارة المالية للمخبز</h1>
     </header>
     
     <div class="action-bar">
         <button id="btn-export-pdf" class="btn-export">تصدير تقرير الشهر كملف PDF</button>
         <button id="btn-reset-data" class="btn-reset">تصفير وبدء شهر جديد</button>
+        <button id="btn-backup" class="btn-backup">حفظ نسخة احتياطية (Data)</button>
+        <label for="restore-file" class="btn-restore">استعادة البيانات</label>
+        <input type="file" id="restore-file" accept=".json" style="display: none;">
     </div>
 
     <main class="dashboard" id="dashboard-content">
