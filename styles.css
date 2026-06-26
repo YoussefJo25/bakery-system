@@ -124,12 +124,6 @@ header h1 {
     gap: 2rem;
 }
 
-@media (max-width: 992px) {
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 .input-group {
     background: #f8fafc;
     border-radius: 8px;
@@ -153,7 +147,7 @@ header h1 {
 
 input[type="number"], input[type="text"], input[type="date"] {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: 6px;
     font-family: inherit;
@@ -184,7 +178,7 @@ input:focus {
     background-color: var(--secondary-color);
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
+    padding: 0.85rem 2rem;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
@@ -200,6 +194,8 @@ input:focus {
 
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 table {
@@ -213,6 +209,7 @@ th, td {
     padding: 1rem;
     text-align: right;
     border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
 }
 
 th {
@@ -236,7 +233,7 @@ tr:hover td {
     background-color: #fee2e2;
     color: var(--danger-color);
     border: 1px solid #fca5a5;
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.875rem;
@@ -255,8 +252,8 @@ tr:hover td {
 }
 
 input[type="checkbox"] {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
     accent-color: var(--success-color);
 }
@@ -284,7 +281,7 @@ input[type="checkbox"] {
     background-color: var(--success-color);
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
+    padding: 0.85rem 2rem;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
@@ -302,7 +299,7 @@ input[type="checkbox"] {
     background-color: var(--danger-color);
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
+    padding: 0.85rem 2rem;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
@@ -322,4 +319,67 @@ input[type="checkbox"] {
 .exporting th:last-child,
 .exporting td:last-child {
     display: none !important;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 992px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1.5rem 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem 1rem;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-bar {
+        flex-direction: column;
+    }
+
+    .btn-export, .btn-reset {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .flex-inputs {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .flex-inputs input,
+    .flex-inputs button {
+        width: 100%;
+    }
+
+    .btn-add {
+        padding: 1rem;
+    }
+
+    input[type="number"], input[type="text"], input[type="date"] {
+        padding: 1rem;
+        font-size: 16px; 
+    }
+
+    th, td {
+        padding: 0.75rem;
+    }
+    
+    .total-label {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+    }
 }
