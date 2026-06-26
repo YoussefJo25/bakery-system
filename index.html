@@ -6,13 +6,19 @@
     <meta name="description" content="لوحة الإدارة المالية للمخبز">
     <title>لوحة الإدارة المالية للمخبز</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <header>
         <h1>نظام الإدارة المالية للمخبز</h1>
     </header>
     
-    <main class="dashboard">
+    <div class="action-bar">
+        <button id="btn-export-pdf" class="btn-export">تصدير تقرير الشهر كملف PDF</button>
+        <button id="btn-reset-data" class="btn-reset">تصفير وبدء شهر جديد</button>
+    </div>
+
+    <main class="dashboard" id="dashboard-content">
         <section class="card summary-card">
             <h2>الخلاصة وحساب الأرباح</h2>
             <div class="summary-grid">

@@ -263,6 +263,41 @@ function attachListeners() {
         e.target.reset();
         saveState();
     });
+
+    document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
+    document.getElementById('btn-reset-data').addEventListener('click', resetData);
+}
+
+function exportPDF() {
+    const element = document.getElementById('dashboard-content');
+    element.classList.add('exporting');
+    
+    setTimeout(() => {
+        const date = new Date();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const filename = `Bakery_Monthly_Report_${month}_${year}.pdf`;
+        
+        const opt = {
+            margin:       0.5,
+            filename:     filename,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'a3', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.classList.remove('exporting');
+        });
+    }, 100);
+}
+
+function resetData() {
+    const isConfirmed = window.confirm('هل أنت متأكد أنك تريد مسح جميع البيانات لبدء شهر جديد؟ تأكد من تحميل ملف PDF أولاً!');
+    if (isConfirmed) {
+        localStorage.removeItem('bakeryStateV2');
+        window.location.reload();
+    }
 }
 
 function init() {
