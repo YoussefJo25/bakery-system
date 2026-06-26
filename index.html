@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة الإدارة المالية للمخبز">
+    <title>لوحة الإدارة المالية للمخبز</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>نظام الإدارة المالية للمخبز</h1>
+    </header>
+    
+    <main class="dashboard">
+        <section class="card summary-card">
+            <h2>الخلاصة وحساب الأرباح</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <h3>إجمالي الدخل</h3>
+                    <p id="total-income">0 ج.م</p>
+                </div>
+                <div class="summary-item expense">
+                    <h3>إجمالي المصروفات</h3>
+                    <p id="total-expenses">0 ج.م</p>
+                </div>
+                <div class="summary-item highlight">
+                    <h3>صافي الربح</h3>
+                    <p id="net-profit">0 ج.م</p>
+                </div>
+                <div class="summary-item split">
+                    <h3>نصيب كل شريك (50%)</h3>
+                    <p id="partner-share">0 ج.م</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="details-grid">
+            <section class="card income-section">
+                <h2>المدخلات (الإيرادات)</h2>
+                
+                <div class="input-group">
+                    <h3>1. الحساب البنكي</h3>
+                    <input type="number" id="bank-income" placeholder="المبلغ المودع شهرياً" min="0" step="0.01">
+                    <div class="total-label">إجمالي الحساب البنكي: <span id="total-bank-income">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group">
+                    <h3>2. اشتراكات الزيات</h3>
+                    <input type="number" id="zayyat-subs" placeholder="إجمالي اشتراكات الزيات شهرياً" min="0" step="0.01">
+                    <div class="total-label">إجمالي اشتراكات الزيات: <span id="total-zayyat-subs">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group table-group">
+                    <h3>3. اشتراكات داخل المخبز</h3>
+                    <form id="bakery-sub-form" class="flex-inputs">
+                        <input type="text" id="bakery-sub-name" placeholder="اسم المشترك" required>
+                        <input type="number" id="bakery-sub-amount" placeholder="المبلغ" required min="0" step="0.01">
+                        <input type="date" id="bakery-sub-date" required>
+                        <button type="submit" class="btn-add">إضافة</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="bakery-sub-table">
+                            <thead>
+                                <tr>
+                                    <th>اسم المشترك</th>
+                                    <th>المبلغ</th>
+                                    <th>التاريخ</th>
+                                    <th class="checkbox-center">تم الدفع</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="total-label">إجمالي اشتراكات داخل المخبز: <span id="total-bakery-subs">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group table-group">
+                    <h3>4. النقدية اليومية (الصافي)</h3>
+                    <form id="daily-cash-form" class="flex-inputs">
+                        <input type="date" id="daily-cash-date" required>
+                        <input type="number" id="daily-cash-amount" placeholder="صافي النقدية" required min="0" step="0.01">
+                        <button type="submit" class="btn-add">إضافة</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="daily-cash-table">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>صافي النقدية</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="total-label">إجمالي النقدية اليومية: <span id="total-daily-cash">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group">
+                    <h3>5. توفير الدقيق</h3>
+                    <div class="flex-inputs">
+                        <input type="number" id="flour-sacks" placeholder="عدد الأجولة الموفرة" value="2" min="0" step="0.01">
+                        <input type="number" id="sack-value" placeholder="القيمة النقدية للجوال الواحد" min="0" step="0.01">
+                    </div>
+                    <div class="total-label">القيمة الإجمالية لتوفير الدقيق: <span id="total-flour-savings">0</span> ج.م</div>
+                </div>
+            </section>
+
+            <section class="card expenses-section">
+                <h2>المصروفات</h2>
+
+                <div class="input-group table-group">
+                    <h3>1. استهلاك الغاز</h3>
+                    <form id="gas-form" class="flex-inputs">
+                        <input type="date" id="gas-date" required>
+                        <input type="number" id="gas-quantity" placeholder="عدد الصفائح" required min="0" step="0.01">
+                        <input type="number" id="gas-cost-per-tin" placeholder="تكلفة الصفيحة" required min="0" step="0.01">
+                        <button type="submit" class="btn-add">إضافة</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="gas-table">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>عدد الصفائح</th>
+                                    <th>تكلفة الصفيحة</th>
+                                    <th>إجمالي التكلفة</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="total-label">إجمالي مصاريف الغاز: <span id="total-gas">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group">
+                    <h3>2. نقل الدقيق</h3>
+                    <input type="number" id="transport-cost" placeholder="التكلفة الإجمالية لنقل الدقيق شهرياً" min="0" step="0.01">
+                    <div class="total-label">إجمالي نقل الدقيق: <span id="total-transport">0</span> ج.م</div>
+                </div>
+
+                <div class="input-group table-group">
+                    <h3>3. نثريات وإصلاحات</h3>
+                    <form id="misc-form" class="flex-inputs">
+                        <input type="date" id="misc-date" required>
+                        <input type="text" id="misc-desc" placeholder="البيان أو الوصف" required>
+                        <input type="number" id="misc-cost" placeholder="التكلفة" required min="0" step="0.01">
+                        <button type="submit" class="btn-add">إضافة</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="misc-table">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>الوصف</th>
+                                    <th>التكلفة</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="total-label">إجمالي النثريات والإصلاحات: <span id="total-misc">0</span> ج.م</div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
